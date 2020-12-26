@@ -1,8 +1,7 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 
-import './products_manager.dart';
+import 'package:myapp/pages/auth.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -18,12 +17,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           primarySwatch: Colors.deepOrange,
           accentColor: Colors.deepPurple),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Merry Christmas Everyone'),
-        ),
-        body: ProductManager(),
-      ),
+      home: AuthPage()
     );
   }
 }
