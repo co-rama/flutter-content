@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 
-import 'package:myapp/pages/auth.dart';
 import 'package:myapp/pages/manage_products.dart';
 import 'package:myapp/pages/products.dart';
 import 'package:myapp/pages/product.dart';
+import 'package:myapp/pages/auth.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -36,15 +36,18 @@ class _MyApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'CoramaF',
       theme: ThemeData(
-          brightness: Brightness.light,
-          primarySwatch: Colors.deepOrange,
-          accentColor: Colors.deepPurple),
-      // home: AuthPage(),
+        brightness: Brightness.light,
+        primarySwatch: Colors.deepOrange,
+        accentColor: Colors.deepPurple,
+        // fontFamily: 'Oswald',
+      ),
+      home: AuthPage(),
       routes: {
-        '/': (BuildContext context) =>
-            ProductsPage(_products, _addProduct, _deleteProduct),
-        '/admin': (BuildContext context) => ManageProductPage()
+        '/products': (BuildContext context) => ProductsPage(_products),
+        '/admin': (BuildContext context) =>
+            ManageProductPage(_addProduct, _deleteProduct)
       },
       onGenerateRoute: (RouteSettings settings) {
         List<String> pathElements = settings.name.split('/');
@@ -62,8 +65,7 @@ class _MyApp extends State<MyApp> {
       },
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-            builder: (BuildContext context) =>
-                ProductsPage(_products, _addProduct, _deleteProduct));
+            builder: (BuildContext context) => ProductsPage(_products));
       },
     );
   }

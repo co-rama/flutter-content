@@ -2,26 +2,50 @@ import 'package:flutter/material.dart';
 
 class Products extends StatelessWidget {
   final List<Map<String, dynamic>> products;
-  final Function deleteProduct;
-  Products(this.products, {this.deleteProduct});
+  Products(this.products);
 
   Widget _buildProductItem(BuildContext context, int index) {
     return Card(
         child: Column(
       children: <Widget>[
         Image.asset(products[index]['image']),
-        Text(products[index]['title']),
+        Container(
+          margin: EdgeInsets.only(top: 10.0),
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text(
+              products[index]['title'],
+              style: TextStyle(
+                  fontSize: 25.0,
+                  fontFamily: 'Oswald',
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(width: 10.0),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
+                  borderRadius: BorderRadius.circular(50.0)),
+              child: Text(
+                '\$' + products[index]['price'].toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ]),
+        ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey[900], width: 1.0), borderRadius: BorderRadius.circular(5)),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            child:Text('Sanamu Ya Jeshi, Posta Dsm')),
+        ),
         ButtonBar(
           alignment: (MainAxisAlignment.center),
           children: <Widget>[
             FlatButton(
                 onPressed: () {
                   Navigator.pushNamed<bool>(
-                    context,
-                    '/product/'+index.toString()
-                  ).then((bool value) => {
-                        if (value) {deleteProduct(index)}
-                      });
+                      context, '/product/' + index.toString());
                 },
                 child: Text('DETAILS'))
           ],
