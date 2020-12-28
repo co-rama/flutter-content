@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:myapp/widgets/ui_elements/address_tag.dart';
+
+import 'package:myapp/widgets/ui_elements/title_default.dart';
+import 'package:myapp/widgets/ui_elements/title_default.dart';
+
 
 class ProductPage extends StatelessWidget {
   final String title;
@@ -50,12 +54,14 @@ class ProductPage extends StatelessWidget {
               Image.asset(imageUrl),
               Container(
                 padding: EdgeInsets.all(10.0),
-                child: Text(title),
+                child: TitleDefault(title),
               ),
+              AddressTag(),
               Container(
                 padding: EdgeInsets.all(10.0),
                 child: RaisedButton(
                   color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
                   onPressed: () => _showWarningDialog(context),
                   child: Text('DELETE'),
                 ),
