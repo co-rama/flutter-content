@@ -82,7 +82,7 @@ class _ProductCreate extends State<ProductCreate> {
     return Container(
       width: targetWidth,
       margin: EdgeInsets.all(15.0),
-      // THE LIST VIEW BY DEFAULT OCCUPY THE WHOLE WIDTH 
+      // THE LIST VIEW BY DEFAULT OCCUPY THE WHOLE WIDTH
       child: ListView(
         padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
         children: <Widget>[
@@ -92,11 +92,21 @@ class _ProductCreate extends State<ProductCreate> {
           SizedBox(
             height: 10.0,
           ),
-          RaisedButton(
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              onPressed: _submitForm,
-              child: Text('Save'))
+          // RaisedButton(
+          //   color: Theme.of(context).primaryColor,
+          //   textColor: Colors.white,
+          //   onPressed: _submitForm,
+          //   child: Text('Save'),
+          // )
+          // GestureDetector(
+          //   onTap: _submitForm,
+          //   child:Container(
+          //   // color: ,
+          //   padding: EdgeInsets.all(5.0),
+          //   child: Text('Pro Save'),
+          //   color: Colors.red,
+          // )
+          // ),
         ],
       ),
     );
