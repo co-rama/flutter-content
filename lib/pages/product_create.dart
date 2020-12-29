@@ -62,6 +62,9 @@ class _ProductCreate extends State<ProductCreate> {
 
   @override
   Widget build(BuildContext context) {
+    final double deviceWidth = MediaQuery.of(context).size.width;
+    final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
+    final double targetPadding = deviceWidth - targetWidth;
     // return Center(
     //     child: RaisedButton(
     //   onPressed: () {
@@ -77,8 +80,11 @@ class _ProductCreate extends State<ProductCreate> {
     // ));
 
     return Container(
+      width: targetWidth,
       margin: EdgeInsets.all(15.0),
+      // THE LIST VIEW BY DEFAULT OCCUPY THE WHOLE WIDTH 
       child: ListView(
+        padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
         children: <Widget>[
           _buildTitleTextField(),
           _buildDescriptionTextField(),

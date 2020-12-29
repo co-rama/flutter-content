@@ -36,11 +36,12 @@ class _MyApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CoramaF',
+      title: 'Corama',
       theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: Colors.deepOrange,
         accentColor: Colors.deepPurple,
+        // buttonColor: Colors.purple[3000],
         // fontFamily: 'Oswald',
       ),
       home: AuthPage(),
