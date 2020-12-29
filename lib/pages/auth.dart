@@ -11,6 +11,59 @@ class _AuthPage extends State<AuthPage> {
   String _emailValue = '';
   String _passwordValue = '';
   bool _acceptTerms = false;
+  DecorationImage _buildBackgroundImage() {
+    return DecorationImage(
+      fit: BoxFit.cover,
+      image: AssetImage('assets/background.jpg'),
+      colorFilter:
+          ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
+    );
+  }
+
+  Widget _buildEmailTextField() {
+    return TextField(
+      decoration: InputDecoration(
+          labelText: 'Email', filled: true, fillColor: Colors.white),
+      onChanged: (String value) {
+        setState(() {
+          _emailValue = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildPasswordTextField() {
+    return TextField(
+      decoration: InputDecoration(
+          labelText: 'Password', filled: true, fillColor: Colors.white),
+      obscureText: true,
+      onChanged: (String value) {
+        setState(() {
+          _passwordValue = value;
+        });
+      },
+    );
+  }
+
+  Widget _acceptTermsSwitch() {
+    return SwitchListTile(
+      onChanged: (bool value) {
+        setState(() {
+          _acceptTerms = value;
+        });
+      },
+      value: _acceptTerms,
+      title: Text(
+        'Accept Terms',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  void _submitForm() {
+    Navigator.pushReplacementNamed(context, '/products');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,52 +73,16 @@ class _AuthPage extends State<AuthPage> {
       body: Container(
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage('assets/background.jpg'),
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.5), BlendMode.dstATop)),
+          image: _buildBackgroundImage(),
         ),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                TextField(
-                  decoration: InputDecoration(
-                      labelText: 'Email',
-                      filled: true,
-                      fillColor: Colors.white),
-                  onChanged: (String value) {
-                    setState(() {
-                      _emailValue = value;
-                    });
-                  },
-                ),
+                _buildEmailTextField(),
                 SizedBox(height: 10.0),
-                TextField(
-                  decoration: InputDecoration(
-                      labelText: 'Password',
-                      filled: true,
-                      fillColor: Colors.white),
-                  obscureText: true,
-                  onChanged: (String value) {
-                    setState(() {
-                      _passwordValue = value;
-                    });
-                  },
-                ),
-                SwitchListTile(
-                  onChanged: (bool value) {
-                    setState(() {
-                      _acceptTerms = value;
-                    });
-                  },
-                  value: _acceptTerms,
-                  title: Text(
-                    'Accept Terms',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
+                _buildPasswordTextField(),
+                _acceptTermsSwitch(),
                 SizedBox(
                   height: 10.0,
                 ),
@@ -73,9 +90,7 @@ class _AuthPage extends State<AuthPage> {
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
                     child: Text('LOGIN'),
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/products');
-                    })
+                    onPressed: _submitForm)
               ],
             ),
           ),

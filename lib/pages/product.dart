@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myapp/widgets/ui_elements/address_tag.dart';
 
 import 'package:myapp/widgets/ui_elements/title_default.dart';
-import 'package:myapp/widgets/ui_elements/title_default.dart';
 
 
 class ProductPage extends StatelessWidget {

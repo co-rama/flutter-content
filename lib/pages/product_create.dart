@@ -15,6 +15,51 @@ class _ProductCreate extends State<ProductCreate> {
   String _description = '';
   double _price = 0.00;
 
+  Widget _buildTitleTextField() {
+    return TextField(
+      decoration: InputDecoration(labelText: 'Product Title'),
+      onChanged: (String value) {
+        setState(() {
+          _titleValue = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildDescriptionTextField() {
+    return TextField(
+        decoration: InputDecoration(labelText: 'Product Description'),
+        maxLines: 4,
+        onChanged: (String value) {
+          setState(() {
+            _description = value;
+          });
+        });
+  }
+
+  Widget _buldPriceTextField() {
+    return TextField(
+      decoration: InputDecoration(labelText: 'Product Price'),
+      keyboardType: TextInputType.number,
+      onChanged: (String value) {
+        setState(() {
+          _price = double.parse(value);
+        });
+      },
+    );
+  }
+
+  void _submitForm() {
+    final Map<String, dynamic> product = {
+      'title': _titleValue,
+      'description': _description,
+      'price': _price,
+      'image': 'assets/xmass.jpg'
+    };
+    widget.addProduct(product);
+    Navigator.pushReplacementNamed(context, '/products');
+  }
+
   @override
   Widget build(BuildContext context) {
     // return Center(
@@ -35,50 +80,17 @@ class _ProductCreate extends State<ProductCreate> {
       margin: EdgeInsets.all(15.0),
       child: ListView(
         children: <Widget>[
-          TextField(
-            decoration: InputDecoration(labelText: 'Product Title'),
-            onChanged: (String value) {
-              setState(() {
-                _titleValue = value;
-              });
-            },
-          ),
-          TextField(
-            decoration: InputDecoration(labelText: 'Product Description'),
-            maxLines: 4,
-            onChanged: (String value) {
-              setState(() {
-                _description = value;
-              });
-            },
-          ),
-          TextField(
-            decoration: InputDecoration(labelText: 'Product Price'),
-            keyboardType: TextInputType.number,
-            onChanged: (String value) {
-              setState(() {
-                _price = double.parse(value);
-              });
-            },
-          ),
+          _buildTitleTextField(),
+          _buildDescriptionTextField(),
+          _buldPriceTextField(),
           SizedBox(
             height: 10.0,
           ),
           RaisedButton(
-            color: Theme.of(context).primaryColor,
-            textColor: Colors.white,
-            onPressed: () {
-              final Map<String, dynamic> product = {
-                'title': _titleValue,
-                'description': _description,
-                'price': _price,
-                'image': 'assets/xmass.jpg'
-              };
-              widget.addProduct(product);
-              Navigator.pushReplacementNamed(context, '/products');
-            },
-            child: Text('Save'),
-          )
+              color: Theme.of(context).primaryColor,
+              textColor: Colors.white,
+              onPressed: _submitForm,
+              child: Text('Save'))
         ],
       ),
     );
