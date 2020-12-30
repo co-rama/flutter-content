@@ -11,6 +11,7 @@ class _AuthPage extends State<AuthPage> {
   String _emailValue = '';
   String _passwordValue = '';
   bool _acceptTerms = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   DecorationImage _buildBackgroundImage() {
     return DecorationImage(
       fit: BoxFit.cover,
@@ -21,26 +22,40 @@ class _AuthPage extends State<AuthPage> {
   }
 
   Widget _buildEmailTextField() {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(
           labelText: 'Email', filled: true, fillColor: Colors.white),
-      onChanged: (String value) {
-        setState(() {
-          _emailValue = value;
-        });
+      onSaved: (String value) {
+        // setState(() {
+        //   _emailValue = value;
+        // });
+        _emailValue = value;
+      },
+      validator: (String value) {
+        if (value.isEmpty || value.length < 5) {
+          return 'Enter the valid email';
+        }
+        return null;
       },
     );
   }
 
   Widget _buildPasswordTextField() {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(
           labelText: 'Password', filled: true, fillColor: Colors.white),
       obscureText: true,
-      onChanged: (String value) {
-        setState(() {
-          _passwordValue = value;
-        });
+      validator: (String value) {
+        if (value.isEmpty || value.length <= 5) {
+          return 'Password must be greater than 5 characters';
+        }
+        return null;
+      },
+      onSaved: (String value) {
+        // setState(() {
+        //   _passwordValue = value;
+        // });
+        _passwordValue = value;
       },
     );
   }
@@ -61,6 +76,10 @@ class _AuthPage extends State<AuthPage> {
   }
 
   void _submitForm() {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    _formKey.currentState.save();
     Navigator.pushReplacementNamed(context, '/products');
   }
 
@@ -80,22 +99,25 @@ class _AuthPage extends State<AuthPage> {
         child: Center(
           child: SingleChildScrollView(
             child: Container(
-              width: targetWidth, 
-              child: Column(
-                children: [
-                  _buildEmailTextField(),
-                  SizedBox(height: 10.0),
-                  _buildPasswordTextField(),
-                  _acceptTermsSwitch(),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  RaisedButton(
-                      color: Theme.of(context).primaryColor,
-                      textColor: Colors.white,
-                      child: Text('LOGIN'),
-                      onPressed: _submitForm)
-                ],
+              width: targetWidth,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    _buildEmailTextField(),
+                    SizedBox(height: 10.0),
+                    _buildPasswordTextField(),
+                    _acceptTermsSwitch(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    RaisedButton(
+                        color: Theme.of(context).primaryColor,
+                        textColor: Colors.white,
+                        child: Text('LOGIN'),
+                        onPressed: _submitForm)
+                  ],
+                ),
               ),
             ),
           ),

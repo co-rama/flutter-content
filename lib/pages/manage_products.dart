@@ -45,7 +45,7 @@ class ManageProductPage extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             ProductEditPage(addProduct: addProduct),
-            ProductList(products, updateProduct)
+            ProductList(products, updateProduct, deleteProduct)
           ],
         ),
       ),
