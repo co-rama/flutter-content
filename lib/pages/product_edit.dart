@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/models/product.dart';
 
 class ProductEditPage extends StatefulWidget {
   final Function addProduct;
   final Function updateProduct;
-  final Map<String, dynamic> product;
+  final Product product;
   final int productIndex;
   ProductEditPage(
       {this.addProduct, this.product, this.updateProduct, this.productIndex});
@@ -27,7 +28,7 @@ class _ProductEditPage extends State<ProductEditPage> {
 
   Widget _buildTitleTextField() {
     return TextFormField(
-      initialValue: widget.product == null ? '' : widget.product['title'],
+      initialValue: widget.product == null ? '' : widget.product.title,
       decoration: InputDecoration(labelText: 'Product Title'),
       // onChanged: (String value) {
       //   setState(() {
@@ -50,7 +51,7 @@ class _ProductEditPage extends State<ProductEditPage> {
 
   Widget _buildDescriptionTextField() {
     return TextFormField(
-      initialValue: widget.product == null ? '' : widget.product['description'],
+      initialValue: widget.product == null ? '' : widget.product.description,
       decoration: InputDecoration(labelText: 'Product Description'),
       maxLines: 4,
       // onChanged: (String value) {
@@ -75,7 +76,7 @@ class _ProductEditPage extends State<ProductEditPage> {
   Widget _buldPriceTextField() {
     return TextFormField(
       initialValue:
-          widget.product == null ? '' : widget.product['price'].toString(),
+          widget.product == null ? '' : widget.product.price.toString(),
       decoration: InputDecoration(labelText: 'Product Price'),
       keyboardType: TextInputType.number,
       // onChanged: (String value) {
@@ -105,12 +106,11 @@ class _ProductEditPage extends State<ProductEditPage> {
       return;
     }
     _formKey.currentState.save();
-    final Map<String, dynamic> product = {
-      'title': _formData['title'],
-      'description': _formData['description'],
-      'price': _formData['price'],
-      'image': 'assets/xmass.jpg'
-    };
+    final Product product = new Product(
+        title: _formData['title'],
+        description: _formData['description'],
+        price: _formData['price'],
+        image: 'assets/xmass.jpg');
     if (widget.product != null) {
       widget.updateProduct(widget.productIndex, product);
     } else {

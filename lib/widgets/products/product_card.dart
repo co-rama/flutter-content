@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/models/product.dart';
 
 import 'package:myapp/widgets/products/price_tag.dart';
 import 'package:myapp/widgets/ui_elements/title_default.dart';
@@ -6,7 +7,7 @@ import 'package:myapp/widgets/ui_elements/address_tag.dart';
 
 
 class ProductCard extends StatelessWidget {
-  final Map<String, dynamic> product;
+  final Product product;
   final productIndex;
   ProductCard(this.product, this.productIndex);
   @override
@@ -14,13 +15,13 @@ class ProductCard extends StatelessWidget {
     return Card(
       child: Column(
         children: <Widget>[
-          Image.asset(product['image']),
+          Image.asset(product.image),
           Container(
             margin: EdgeInsets.only(top: 10.0),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               SizedBox(width: 10.0),
-              TitleDefault(product['title']),
-              PriceTag(product['price'].toString()),
+              TitleDefault(product.title),
+              PriceTag(product.price.toString()),
             ]),
           ),
          AddressTag(),
