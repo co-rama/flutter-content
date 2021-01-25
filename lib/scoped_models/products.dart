@@ -1,3 +1,4 @@
+import 'package:http/http.dart' as http;
 import 'package:myapp/models/user.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -8,9 +9,17 @@ mixin ProductsModel on Model {
   int _selectedProductIndex;
   bool _showfavorites = false;
   User authenticatedUser;
+  final String  url = 'https://flutter-content-default-rtdb.firebaseio.com/';
 
   void addProduct(
       {String title, String description, String image, double price}) {
+    Map<String, dynamic> productData = {
+      'title': title,
+      'description': description,
+      'price': price,
+      'image':
+          'https://www.cookingclassy.com/wp-content/uploads/2020/08/french-bread-pizza-14.jpg'
+    };
     Product product = new Product(
       title: title,
       description: description,
@@ -19,6 +28,9 @@ mixin ProductsModel on Model {
       userEmail: authenticatedUser.email,
       userID: authenticatedUser.password,
     );
+    // http
+    //     .post('https://corecipebook.firebaseio.com/products.json', body: json.encode(productData))
+    //     .then((response) => print(response));
     _products.add(product);
     // _selectedProductIndex = null;
     notifyListeners();
@@ -32,15 +44,15 @@ mixin ProductsModel on Model {
     notifyListeners();
   }
 
-  void updateProduct( {String title, String description, String image, double price}) {
+  void updateProduct(
+      {String title, String description, String image, double price}) {
     Product product = new Product(
-      title: title,
-      description: description,
-      image: image,
-      price: price,
-      userEmail: authenticatedUser.email,
-      userID: authenticatedUser.id
-    );
+        title: title,
+        description: description,
+        image: image,
+        price: price,
+        userEmail: authenticatedUser.email,
+        userID: authenticatedUser.id);
     if (_selectedProductIndex != null) {
       _products[_selectedProductIndex] = product;
     }
